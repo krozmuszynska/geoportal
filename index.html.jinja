@@ -1,0 +1,332 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="title" content="Geoportal">
+    <meta name="description" content="Udostępnianie danych informacyjnych o regionalnych dyrekcjach lasów państwowych i nadleśnictwach w geoportalu">
+    <meta name="keywords" content="Nadleśnictwa, Adresy, Praca inżynierska, SGGW">
+    <meta name="author" content="Kinga Rozmuszyńska">
+
+    <!-- JQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- LeafletJS -->
+    <link href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" rel="stylesheet"/>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" type="text/javascript"></script>
+
+    <!-- Leaflet Awsome Markers -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.min.js"></script>
+
+    <!-- FontAwsome https://fontawesome.com/v4.7.0/icons/ -->
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- IOnic Font -->
+    <link href="http://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    
+	<!-- Leaflet MiniMap Plugin -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.min.css" rel="stylesheet"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.min.js"></script>
+
+	<!-- Leaflet FuseSearch Plugin -->
+    <link href="https://cdn.jsdelivr.net/npm/leaflet-search@2.9.8/dist/leaflet-search.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.0/dist/fuse.min.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-search@2.9.8/dist/leaflet-search.src.min.js"></script>
+
+    <!-- Leaflet Grouped Layer Control -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-groupedlayercontrol/0.6.1/leaflet.groupedlayercontrol.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-groupedlayercontrol/0.6.1/leaflet.groupedlayercontrol.min.js" type="text/javascript"></script>
+
+
+	<!-- Leaflet data -->
+    <script src="{{ DATA_FILE }}" type="text/javascript"></script>
+    
+    <style>
+        html,
+        body {
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+
+        #ctrl-btns {
+            /* configure the size of the button area */
+            width: 100%;
+            height: 10%;
+        }
+
+        #map {
+            /* configure the size of the map */
+            width: 100%;
+            height: 90%;
+        }
+
+        .pop-head {
+            text-align: center;
+        }
+        .pop-box {
+        }
+        .pop-img {
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+        .pop-img img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+        }
+        .pop-text {
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Category buttons -->
+    <div class="ctrl-btns">
+        <h3>{{ PAGE_TITLE }}</h3>
+    </div>
+    <!-- Main map -->
+    <div id="map" class="leaflet-container"></div>
+    
+    <script>
+        // add tiles
+        {% for t in tile_list %}
+            var {{ t.id }} = L.tileLayer('{{ t.url }}', {
+                id: '{{ t.id }}',
+                reuseTiles : true,
+                {% if t.tile_size is defined and t.tile_size is not none %}tileSize: {{ t.tile_size }},{% endif %}
+                {% if t.zoom_offset is defined and t.zoom_offset is not none %}zoomOffset: {{ t.zoom_offset }},{% endif %}
+                {% if t.max_zoom is defined and t.max_zoom is not none %}maxZoom: {{ t.max_zoom }},{% endif %}
+                {% if t.attribution is defined and t.attribution|length %}attribution: '{{ t.attribution }}'{% endif %}
+            });
+        {% endfor %}
+
+        // MiniMap tiles (OSM)
+        var osmMiniMap = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            minZoom: 0,
+            maxZoom: 5,
+            attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+        });
+
+        // add WMS layers
+        {% for wm in wms_list %}
+            var {{ wm.id }} = L.tileLayer.wms('{{ wm.url }}', {
+                layers: '{{ wm.layer_name }}',
+                format: '{{ wm.format }}',
+                transparent: {% if wm.transparent %}true{% else %}false{% endif %},
+                attribution: '{{ wm.attribution }}'
+            });
+        {% endfor %}
+
+
+        // base layers definition
+        var baseLayers = {
+            {% for t in tile_list %}
+                "{{ t.name }}": {{ t.id }}{% if not loop.last %},{% endif %}
+            {% endfor %}
+        };
+
+        // initialize map and add base layers
+        var map = L.map('map', {
+            center: [51.9787939, 21.3285386],
+            zoom: 8,
+            layers: L.layerGroup([
+                {% for t in tile_list %}
+                    {{ t.id }}{% if not loop.last %},{% endif %}
+                {% endfor %}
+            ])
+        });
+
+        // show minimap
+        var miniMap = new L.Control.MiniMap(osmMiniMap, { toggleDisplay: true }).addTo(map);
+
+        // show the scale bar on the lower left corner
+        L.control.scale().addTo(map);
+
+        // ========================== Load data from GeoJSON file ================================================
+
+        // zoom on marker click
+        function clickZoom(e) {
+            map.setView(e.target.getLatLng(),12);
+        }
+
+        // define popup style for markers
+        function onEachFeature(feature, layer) {
+            var popupContent = (!!feature.properties.name ? "<div class='pop-head'><h3>" + feature.properties.name + "</h3></div>" : "")
+                + "<div class='pop-box'>"
+                + (!!feature.properties.image ? "<div class='pop-img'><img src='" + feature.properties.image + "'></div>" : "")
+                + "<div class='pop-text'>"
+                + (!!feature.properties.address ? "<b>Adres: </b>" + feature.properties.address + "<br/>" : "")
+                + (!!feature.properties.phone ? "<b>Telefon: </b>" + feature.properties.phone + "<br/>" : "")
+                + (!!feature.properties.email ? "<b>E-mail: </b><a href='mailto:" + feature.properties.email + "'>" + feature.properties.email + "</a><br/>" : "")
+                + (!!feature.properties.website ? "<b>Strona: </b><a href='" + feature.properties.website + "' target='_blank'>" + feature.properties.website + "</a><br/>" : "")
+                + (!!feature.properties.description ? feature.properties.description : "")
+                + "</div></div>";
+
+            if (feature.properties && feature.properties.popupContent) {
+                popupContent += feature.properties.popupContent;
+            }
+
+            layer.bindPopup(popupContent)
+            .on('click', function(e){
+                map.setView(e.target.getLatLng(),12);
+                this.bindPopup(popupContent).openPopup();
+            });
+        }
+
+        // default marker style for non defined markers
+        L.AwesomeMarkers.Icon.prototype.options.icon = 'circle';
+        L.AwesomeMarkers.Icon.prototype.options.prefix = 'fa';
+        L.AwesomeMarkers.Icon.prototype.options.markerColor = 'red';
+        L.AwesomeMarkers.Icon.prototype.options.iconColor = 'white';
+        L.AwesomeMarkers.Icon.prototype.options.spin = false;
+        L.AwesomeMarkers.Icon.prototype.options.extraClasses = '';
+
+        // define marker style
+        function pointToLayer(feature, latlng) {
+                if (feature.properties.marker != null){
+                    if (feature.properties.marker.iconUrl != ""){
+                            var customIcon = L.icon({   // doc https://leafletjs.com/examples/custom-icons/
+                                iconUrl: !!feature.properties.marker.iconUrl ? feature.properties.marker.iconUrl : '',
+                                shadowUrl: !!feature.properties.marker.shadowUrl ? feature.properties.marker.shadowUrl : '',
+                                iconSize:     !!feature.properties.marker.iconSize ? feature.properties.marker.iconSize : '', // size of the icon
+                                shadowSize:   !!feature.properties.marker.shadowSize ? feature.properties.marker.shadowSize : '', // size of the shadow
+                                iconAnchor:   !!feature.properties.marker.iconAnchor ? feature.properties.marker.iconAnchor : '', // point of the icon which will correspond to marker's location
+                                shadowAnchor: !!feature.properties.marker.shadowAnchor ? feature.properties.marker.shadowAnchor : '',  // the same for the shadow
+                                popupAnchor:  !!feature.properties.marker.popupAnchor ? feature.properties.marker.popupAnchor : '' // point from which the popup should open relative to the iconAnchor
+                            });
+                        return L.marker(latlng, {icon: customIcon});
+                    } else {
+                        return L.marker(latlng, {
+                                icon: L.AwesomeMarkers.icon({
+                                    icon: !!feature.properties.marker.icon ? feature.properties.marker.icon : '', 
+                                    prefix: !!feature.properties.marker.prefix ? feature.properties.marker.prefix : '', 
+                                    markerColor: !!feature.properties.marker.markerColor ? feature.properties.marker.markerColor : '',
+                                    iconColor: !!feature.properties.marker.iconColor ? feature.properties.marker.iconColor : '',
+                                    spin: !!feature.properties.marker.spin ? feature.properties.marker.spin : '',
+                                    extraClasses: !!feature.properties.marker.extraClasses ? feature.properties.marker.extraClasses : ''
+                                })
+                        });
+                    }
+                }else{
+                    return L.marker(latlng);
+                }
+        }
+
+        // add layer with markers from geoJSON file
+         var jsonLayer = L.geoJSON(jsonData, {
+            style: function (feature) {
+                return feature.properties && feature.properties.style;
+            },
+            onEachFeature: onEachFeature,
+            pointToLayer: pointToLayer
+        }); 
+
+        // generate search index (using FuseJS)
+        var fuse = new Fuse(jsonData.features, {
+            shouldSort: true,
+            includeMatches: true,
+            threshold: 0.1,
+            location: 0,
+            distance: 100,
+            maxPatternLength: 20,
+            minMatchCharLength: 3,
+            keys: [
+                "properties.search"
+            ]
+	    });
+
+        // add search control box to the map 
+        L.control.search({
+            layer: jsonLayer,
+            propertyName: 'name',
+            filterData: function(text, records) {
+                var jsons = fuse.search(text),
+                    ret = {}, key;
+                for(var j of jsons) {
+                    key = j.item.properties.name;
+                    ret[ key ]= records[key];
+                }
+
+                console.log(jsons,ret);
+                return ret;
+            }
+        })
+        .on('search:locationfound', function(e) {
+            map.flyTo(e.latlng, 12);
+            e.layer.openPopup();
+        })
+        .addTo(map);
+
+        map.removeLayer(jsonLayer)
+
+        // add markers as separate layer
+        {% for m in unique_marker_list %}
+            var  {{ marker_dict[m].id }} = L.geoJSON(jsonData, {
+                filter: function(feature, layer) {
+                    return feature.properties.marker.id == "{{ marker_dict[m].id }}";
+                },
+                style: function (feature) {
+                    return feature.properties && feature.properties.style;
+                },
+                onEachFeature: onEachFeature,
+                pointToLayer: pointToLayer
+            }).addTo(map);
+        {% endfor %}
+
+        // extra layers definition
+        var overlays = {
+            "WMS": {
+                {% for wm in wms_list %}
+                    "{{ wm.name }}": {{ wm.id }}{% if not loop.last %},{% endif %}
+                {% endfor %}
+            },
+            "GeoJSON": {
+                {% for m in unique_marker_list %}
+                    "{{ marker_dict[m].name }}": {{ marker_dict[m].id }}{% if not loop.last %},{% endif %}
+                {% endfor %}
+            }
+        };
+
+        // add control menu
+        var layerCtrl = L.control.groupedLayers(baseLayers, overlays, {collapsed:false, autoZIndex:true}).setPosition('topright').addTo(map);
+        
+        map.on('zoomend', function() {
+            console.log(map.getZoom());
+
+            switch(map.getZoom()) {
+            {% for zoom in range(1,20) %}
+            case {{zoom}}:
+                {% for m in unique_marker_list %}
+                    {% if zoom >= marker_dict[m].zoom_min and zoom <= marker_dict[m].zoom_max %}
+                        map.addLayer({{ marker_dict[m].id }});
+                    {% else %}
+                        map.removeLayer({{ marker_dict[m].id }});
+                    {% endif %}
+                {% endfor %}
+                break;
+            {% endfor %}
+            default:
+                {% for m in unique_marker_list %}
+                        map.addLayer({{ marker_dict[m].id }});
+                {% endfor %}
+                break;
+            }
+        });
+
+        // fit the extent to our markers
+        map.fitBounds(jsonLayer.getBounds(), {
+            padding: [20, 20]
+        });
+    </script>
+</body>
+
+</html>
