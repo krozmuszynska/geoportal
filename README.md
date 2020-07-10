@@ -95,7 +95,7 @@ IV. Lista znaczników (`markers`), która pozwala na graficzne oznaczenie różn
 3. URL - adres URL serwera WMS (np. `https://mapserver.bdl.lasy.gov.pl/ArcGIS/services/WMS_BDL/mapserver/WMSServer?`)
 4. Layer name - nazwa warstwy, zgodnie z informacjami w GetCapabilities serwera WMS
 5. Format - format danych przesyłanych przez serwer (np. `image/png`)
-6. Transparent - czy pobrane obrazy mają być transparentne, wartość boolowska (np. `true`, `false`) 
+6. Transparent - czy pobrane obrazy mają być transparentne, `1` oznacza tak, `0` oznacza nie
 7. Attribution - informacje autorskie lub komentarze do warstw, widoczne dla użytkownika
 
 ### IV. Arkusz zawierający listę znaczników o nazwie `markers` posiada kolumny, które tworzą dwie grupy.
@@ -110,7 +110,7 @@ Znaczenie poszczególnych kolumn w arkuszu jest następujące:
 4. (A) Prefix - oznaczenie biblioteki ikon znacznika, dostępne biblioteki to `fa` dla stylu Font-Awesome, `glyphicon` dla stylu Bootstrap 3, `ion` dla stylu IOnic Fonts
 5. (A) Marker color - kolor znacznika łezki, dostępne wartości kolorów to `red`, `darkred`, `orange`, `green`, `darkgreen`, `blue`, `purple`, `darkpurple`, `cadetblue`
 6. (A) Icon color - kolor ikony na znaczniku, dostępne wartości kolorów to `white`, `black` lub kod css (hex, rgba)
-7. (A) Spin - czy ikona ma się kręcić wokół swojej osi 
+7. (A) Spin - czy ikona ma się kręcić wokół swojej osi, `1` oznacza tak, `0` oznacza nie
 8. Zoom min - minimalna wartość powiększenia dla której widoczna jest ikona znacznika
 9. Zoom max - maksymalna wartość powiększenia dla której widoczna jest ikona znacznika
 10. Extra classes - dodatkowe klasy CSS które zostaną dodane do znacznika
