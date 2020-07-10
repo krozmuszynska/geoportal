@@ -18,66 +18,66 @@ def get_max_row(work_book, work_sheet, column_id):
 
 def get_tile(work_book: Workbook, work_sheet: str, row_num: int) -> Tile:
     return Tile(
-        get_str(work_book, work_sheet, 'A', row_num),
-        get_str(work_book, work_sheet, 'B', row_num),
-        get_str(work_book, work_sheet, 'C', row_num),
-        get_val(work_book, work_sheet, 'D', row_num),
-        get_val(work_book, work_sheet, 'E', row_num),
-        get_val(work_book, work_sheet, 'F', row_num),
-        get_str(work_book, work_sheet, 'G', row_num)        
+        get_str(work_book, work_sheet, 'A', row_num), # ID
+        get_str(work_book, work_sheet, 'B', row_num), # Name
+        get_str(work_book, work_sheet, 'C', row_num), # URL
+        get_val(work_book, work_sheet, 'D', row_num), # Tile size
+        get_val(work_book, work_sheet, 'E', row_num), # Zoom offset
+        get_val(work_book, work_sheet, 'F', row_num), # Max zoom
+        get_str(work_book, work_sheet, 'G', row_num)  # Attribution
     )
 
 def get_marker(work_book: Workbook, work_sheet: str, row_num: int) -> Marker:
     return Marker(
-        get_str(work_book, work_sheet, 'A', row_num),
-        get_str(work_book, work_sheet, 'B', row_num),
-        get_str(work_book, work_sheet, 'C', row_num),
-        get_str(work_book, work_sheet, 'D', row_num),
-        get_str(work_book, work_sheet, 'E', row_num),
-        get_str(work_book, work_sheet, 'F', row_num),
-        get_val(work_book, work_sheet, 'G', row_num),
-        get_val(work_book, work_sheet, 'H', row_num),
-        get_val(work_book, work_sheet, 'I', row_num),
-        get_str(work_book, work_sheet, 'J', row_num),
-        get_str(work_book, work_sheet, 'K', row_num),
-        get_str(work_book, work_sheet, 'L', row_num),
-        get_str(work_book, work_sheet, 'M', row_num),
-        get_str(work_book, work_sheet, 'N', row_num),
-        get_str(work_book, work_sheet, 'O', row_num),
-        get_str(work_book, work_sheet, 'P', row_num),
-        get_str(work_book, work_sheet, 'Q', row_num)
+        get_str(work_book, work_sheet, 'A', row_num), # ID
+        get_str(work_book, work_sheet, 'B', row_num), # Name
+        get_str(work_book, work_sheet, 'C', row_num), # Icon name
+        get_str(work_book, work_sheet, 'D', row_num), # Prefix
+        get_str(work_book, work_sheet, 'E', row_num), # Marker color
+        get_str(work_book, work_sheet, 'F', row_num), # Icon color
+        get_val(work_book, work_sheet, 'G', row_num), # Spin
+        get_val(work_book, work_sheet, 'H', row_num), # Zoom min
+        get_val(work_book, work_sheet, 'I', row_num), # Zoom max
+        get_str(work_book, work_sheet, 'J', row_num), # Extra classes
+        get_str(work_book, work_sheet, 'K', row_num), # Icon URL
+        get_str(work_book, work_sheet, 'L', row_num), # Shadow URL
+        get_str(work_book, work_sheet, 'M', row_num), # Icon size
+        get_str(work_book, work_sheet, 'N', row_num), # Shadow size
+        get_str(work_book, work_sheet, 'O', row_num), # Icon anchor
+        get_str(work_book, work_sheet, 'P', row_num), # Shadow anchor
+        get_str(work_book, work_sheet, 'Q', row_num)  # Popup anchor
     )
 
 def get_wms(work_book: Workbook, work_sheet: str, row_num: int) -> WMS:
     return WMS(
-        get_str(work_book, work_sheet, 'A', row_num),
-        get_str(work_book, work_sheet, 'B', row_num),
-        get_str(work_book, work_sheet, 'C', row_num),
-        get_str(work_book, work_sheet, 'D', row_num),
-        get_val(work_book, work_sheet, 'E', row_num),
-        get_str(work_book, work_sheet, 'F', row_num),
-        get_str(work_book, work_sheet, 'G', row_num)     
+        get_str(work_book, work_sheet, 'A', row_num), # ID
+        get_str(work_book, work_sheet, 'B', row_num), # Name
+        get_str(work_book, work_sheet, 'C', row_num), # URL
+        get_str(work_book, work_sheet, 'D', row_num), # Layer name
+        get_str(work_book, work_sheet, 'E', row_num), # Format
+        get_val(work_book, work_sheet, 'F', row_num), # Transparent
+        get_str(work_book, work_sheet, 'G', row_num)  # Attribution
     )
 
 def get_data(work_book: Workbook, work_sheet: str, row_num: int) -> Geo_data:
     return Geo_data(
-        get_str(work_book, work_sheet, 'A', row_num),
-        get_val(work_book, work_sheet, 'B', row_num),
-        get_val(work_book, work_sheet, 'C', row_num),
-        get_str(work_book, work_sheet, 'D', row_num),
-        get_str(work_book, work_sheet, 'E', row_num),
-        get_str(work_book, work_sheet, 'F', row_num),
-        get_str(work_book, work_sheet, 'G', row_num),
-        get_str(work_book, work_sheet, 'H', row_num),
-        get_str(work_book, work_sheet, 'I', row_num),
-        get_str(work_book, work_sheet, 'J', row_num),
-        get_str(work_book, work_sheet, 'K', row_num),
-        get_str(work_book, work_sheet, 'L', row_num),
-        get_str(work_book, work_sheet, 'M', row_num),
-        get_str(work_book, work_sheet, 'N', row_num),
-        get_str(work_book, work_sheet, 'O', row_num),
-        get_str(work_book, work_sheet, 'P', row_num),
-        get_str(work_book, work_sheet, 'Q', row_num)
+        get_str(work_book, work_sheet, 'A', row_num), # ID
+        get_val(work_book, work_sheet, 'B', row_num), # Latitude [N]
+        get_val(work_book, work_sheet, 'C', row_num), # Longitude [E]
+        get_str(work_book, work_sheet, 'D', row_num), # Marker ID
+        get_str(work_book, work_sheet, 'E', row_num), # Name
+        get_str(work_book, work_sheet, 'F', row_num), # Description
+        get_str(work_book, work_sheet, 'G', row_num), # Search key
+        get_str(work_book, work_sheet, 'H', row_num), # Street
+        get_str(work_book, work_sheet, 'I', row_num), # Building no
+        get_str(work_book, work_sheet, 'J', row_num), # Local no
+        get_str(work_book, work_sheet, 'K', row_num), # ZIP
+        get_str(work_book, work_sheet, 'L', row_num), # City
+        get_str(work_book, work_sheet, 'M', row_num), # Country
+        get_str(work_book, work_sheet, 'N', row_num), # Telephone
+        get_str(work_book, work_sheet, 'O', row_num), # E-mail
+        get_str(work_book, work_sheet, 'P', row_num), # Web
+        get_str(work_book, work_sheet, 'Q', row_num)  # Image URL
     )
 
 def get_sheet(work_book: Workbook, work_sheet: str, sheet_type_fn: Callable, rtype: str):

@@ -1,14 +1,14 @@
 # class describes one row in the Types sheet
 class Marker:
 
-    def __init__(self, id, name, icon_name, prefix, marker_color, icon_color, spin: bool, zoom_min: int, zoom_max: int, extra_classes, icon_url, shadow_url, icon_size, shadow_size, icon_anchor, shadow_anchor, popup_anchor):
+    def __init__(self, id: str, name: str, icon_name: str, prefix: str, marker_color: str, icon_color: str, spin: int, zoom_min: int, zoom_max: int, extra_classes: str, icon_url: str, shadow_url: str, icon_size: str, shadow_size: str, icon_anchor: str, shadow_anchor: str, popup_anchor: str):
         self.id = id
         self.name = name
         self.icon_name = icon_name
         self.prefix = prefix
         self.marker_color = marker_color
         self.icon_color = icon_color
-        self.spin = spin
+        self.spin = bool(spin)
         self.zoom_min = zoom_min
         self.zoom_max = zoom_max
         self.extra_classes = extra_classes
@@ -53,13 +53,13 @@ class Tile:
 
 # class describes one row in the WMS sheet
 class WMS:
-    def __init__(self, id, name, url, layer_name, format, transparent, attribution):
+    def __init__(self, id: str, name: str, url: str, layer_name: str, format: str, transparent: int, attribution: str):
         self.id = id
         self.name = name
         self.url = url
         self.layer_name = layer_name
         self.format = format
-        self.transparent = transparent
+        self.transparent = bool(transparent)
         self.attribution = attribution
 
     def __str__(self):
@@ -73,7 +73,7 @@ class WMS:
 
 # class describes one row in the Data sheet
 class Geo_data:
-    def __init__(self, id, lat: float, lng: float, marker_type: Marker, name, description, search_keys, street, building_number, local_number, zip, city, country, phone, email, website, image_url):
+    def __init__(self, id, lat: float, lng: float, marker_type: Marker, name: str, description: str, search_keys: str, street: str, building_number: str, local_number: str, zip: str, city: str, country: str, phone: str, email: str, website: str, image_url: str):
         self.id = id
         self.lat = lat
         self.lng = lng
