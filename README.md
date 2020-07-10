@@ -16,8 +16,8 @@ W celu przetestowania kodu zawartego w tym repozytorium (oraz ewentualnej modyfi
 3. W wyświetlonym panelu wybierz `Import from GitHub`
 4. Wklej adres tego repozytorium `https://github.com/krozmuszynska/geoportal` i kliknij Import
 5. Zobaczysz, że do on-line edytora zostanie wczytane repozytorium kodu, powinieneś zobaczyć ten plik z instrukcją.
-6. 
-7. Jeżeli kliniesz `Run` to na podstawie pliku `rdlp_gps.xlsx` zostanie wygenerowany gotowy geoportal zawierający dane o siedzibach administracji LP wraz z kontaktami do nich. Wygenerowane pliki znajdują się w katalogu `geoportal`, który zobaczysz w drzewie repozytorium po prawej stronie.
+6. Kliknij `Run`, teraz rozpocznie się instalacja wymaganych bibliotek a po jej ukończeniu skrypt na podstawie przykładowego pliku `data.xlsx` wygeneruje gotowy geoportal zawierający dane o siedzibach administracji LP wraz z danymi kontaktowymi i zdjęciami budynków. 
+7. Jeżeli w oknie terminala po prawej zobaczysz komunikat  `Geoportal is ready to use, please open geoportal/index.html to see how it looks like` portal wygenerował się poprawnie. Wygenerowane pliki znajdują się w katalogu `geoportal`, który zobaczysz w drzewie repozytorium po lewej stronie.
 8. Żeby pobrać pliki na dysk komputera kliknij w podglądzie drzewa projektu na trzy pionowe kropki `...` i wybierz `Download as zip`.
 9. Pobrane archiwum rozpakuj w dowolne miejsce
 10. Wejdź do katalogu gdzie rozpakowałeś plik, dalej do `geoportal` i otwórz plik `index.html`

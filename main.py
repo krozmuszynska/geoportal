@@ -49,7 +49,7 @@ def main():
     for d in data_list:
         marker_type_list.append(d.marker_type)
     unique_marker_list = list(set(marker_type_list))
-    res = tmpl.render(wms_list=wms_list, tile_list=tile_list, marker_dict=marker_dict, unique_marker_list=unique_marker_list)
+    res = tmpl.render(wms_list=wms_list, tile_list=tile_list, marker_dict=marker_dict, unique_marker_list=unique_marker_list, data_file=DATA_FILE, page_title=PAGE_TITLE)
 
     print(f"Export geoportal webpage to {EXPORT_DIR}/{OUTPUT_FILE}")
     with open(f"{EXPORT_DIR}/{OUTPUT_FILE}", 'w', encoding='utf-8') as f:
