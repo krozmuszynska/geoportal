@@ -89,13 +89,18 @@
 
 <body>
 
-    <!-- Category buttons -->
-    <div class="ctrl-btns">
+    <!-- Title -->
+    <div>
         <h3>{{ page_title }}</h3>
     </div>
     <!-- Main map -->
     <div id="map" class="leaflet-container"></div>
     
+    <!-- Author -->
+    <div>
+        <h3>{{ author }}</h3>
+    </div>
+
     <script>
         // add tiles
         {% for t in tile_list %}
