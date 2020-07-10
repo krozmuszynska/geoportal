@@ -1,8 +1,11 @@
 
 # Udostępnianie danych informacyjnych o regionalnych dyrekcjach lasów państwowych i nadleśnictwach w geoportalu
 Niniejsze repozytorium zawiera skrypty będące częścią pracy inżynierskiej.
+
 Autor: Kinga Rozmuszyńska
+
 Uczelnia: Szkoła Główna Gospodarstwa Wiejskiego
+
 Warszawa, 30 Czerwca 2020 roku
 
 ## Uruchomienie skryptów on-line
@@ -11,15 +14,16 @@ W celu przetestowania kodu zawartego w tym repozytorium (oraz ewentualnej modyfi
 1. Otwórz stronę [repl.it](https://repl.it/).
 2. Wybierz `Start <coding>` (możesz też utworzyć konto ale nie jest to wymagane).
 3. W wyświetlonym panelu wybierz `Import from GitHub`
-4. Wklej adres tego repozytorium `http://github.com/kinga......` i kliknij Import
-5. Zobaczysz, że do on-line edytora zostanie wczytane repozytorium kodu
-6. Jeżeli kliniesz `Run` to na podstawie pliku `rdlp_gps.xlsx` zostanie wygenerowany gotowy geoportal zawierający dane o siedzibach administracji LP wraz z kontaktami do nich. Wygenerowane pliki znajdują się w katalogu `geoportal`, który zobaczysz w drzewie repozytorium po prawej stronie.
-7. Żeby pobrać pliki na dysk komputera kliknij w podglądzie drzewa projektu na trzy pionowe kropki `...` i wybierz `Download as zip`.
-8. Pobrane archiwum rozpakuj w dowolne miejsce
-9. Wejdź do katalogu gdzie rozpakowałeś plik, dalej do `geoportal` i otwórz plik `index.html`
-10. W domyślnej przeglądarce pojawi się wygenerowany geoportal wraz z warstwami i punktami, które były w pliku Excel `rdlp_gps.xlsx`
-11. Zawartość katalogu `geoportal` możesz komuś posłać, albo skopiować na dowolny hosting i udostępnić całemu światu :)
-12. Niech moc będzie z Tobą!
+4. Wklej adres tego repozytorium `https://github.com/krozmuszynska/geoportal` i kliknij Import
+5. Zobaczysz, że do on-line edytora zostanie wczytane repozytorium kodu, powinieneś zobaczyć ten plik z instrukcją.
+6. 
+7. Jeżeli kliniesz `Run` to na podstawie pliku `rdlp_gps.xlsx` zostanie wygenerowany gotowy geoportal zawierający dane o siedzibach administracji LP wraz z kontaktami do nich. Wygenerowane pliki znajdują się w katalogu `geoportal`, który zobaczysz w drzewie repozytorium po prawej stronie.
+8. Żeby pobrać pliki na dysk komputera kliknij w podglądzie drzewa projektu na trzy pionowe kropki `...` i wybierz `Download as zip`.
+9. Pobrane archiwum rozpakuj w dowolne miejsce
+10. Wejdź do katalogu gdzie rozpakowałeś plik, dalej do `geoportal` i otwórz plik `index.html`
+11. W domyślnej przeglądarce pojawi się wygenerowany geoportal wraz z warstwami i punktami, które były w pliku Excel `rdlp_gps.xlsx`
+12. Zawartość katalogu `geoportal` możesz komuś posłać, albo skopiować na dowolny hosting i udostępnić całemu światu :)
+13. Niech moc będzie z Tobą!
 
 
 ## Uruchomienie skryptów w lokalnym środowisku

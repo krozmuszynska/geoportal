@@ -1,0 +1,31 @@
+name = "geoportal"
+version = "1.0.0"
+description = "Udostępnianie danych informacyjnych o regionalnych dyrekcjach lasów państwowych i nadleśnictwach w geoportalu"
+authors = [
+    "Kinga Rozmuszyńska <kinex@interia.eue>"
+]
+license = "MIT"
+readme = "README.md"
+python = "^3.8"
+homepage = "https://github.com/krozmuszynska/geoportal"
+repository = "https://github.com/krozmuszynska/geoportal"
+documentation = "https://github.com/krozmuszynska/geoportal"
+
+keywords = ["geoportal", "lasy państwowe", "sggw", "gis"]
+
+classifiers = [
+    "Topic :: GIS"
+]
+
+# Requirements
+[dependencies]
+et-xmlfile = "^1.0"
+flake8 = "^3.8"
+geojson = "^2.5"
+jdcal = "^1.4"
+Jinja2 = "^2.11"
+MarkupSafe = "^1.1"
+mccabe = "^0.6"
+openpyxl = "^3.0"
+pycodestyle = "^2.6"
+pyflakes = "^2.2"
