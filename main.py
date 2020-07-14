@@ -20,7 +20,7 @@ INPUT_FILE = 'sample/data_1.xlsx'
 OUTPUT_FILE = 'index.html'
 DATA_FILE = 'geojson.js'
 EXPORT_DIR = 'geoportal'
-PAGE_TITLE = 'Geoportal z danymi informacyjne o regionalnych dyrekcjach lasów państwowych i nadleśnictwach'
+PAGE_TITLE = 'Geoportal z danymi informacyjnymi o regionalnych dyrekcjach lasów państwowych i nadleśnictwach'
 AUTHOR = 'Kinga Rozmuszyńska &copy; 2020'
 
 def main():
