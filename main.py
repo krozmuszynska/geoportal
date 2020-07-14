@@ -16,7 +16,7 @@ from pathlib import Path
 # INPUT_FILE = args.input
 # OUTPUT_FILE = args.output
 
-INPUT_FILE = 'data.xlsx'
+INPUT_FILE = 'sample/data_1.xlsx'
 OUTPUT_FILE = 'index.html'
 DATA_FILE = 'geojson.js'
 EXPORT_DIR = 'geoportal'
