@@ -16,12 +16,12 @@ W celu przetestowania kodu zawartego w tym repozytorium (oraz ewentualnej modyfi
 3. W wyświetlonym panelu wybierz `Import from GitHub`
 4. Wklej adres tego repozytorium `https://github.com/krozmuszynska/geoportal` i kliknij Import
 5. Zobaczysz, że do on-line edytora zostanie wczytane repozytorium kodu, powinieneś zobaczyć ten plik z instrukcją.
-6. Kliknij `Run`, teraz rozpocznie się instalacja wymaganych bibliotek a po jej ukończeniu skrypt na podstawie przykładowego pliku `data.xlsx` wygeneruje gotowy geoportal zawierający dane o siedzibach administracji LP wraz z danymi kontaktowymi i zdjęciami budynków. 
+6. Kliknij `Run`, teraz rozpocznie się instalacja wymaganych bibliotek a po jej ukończeniu skrypt na podstawie przykładowego pliku `data_1.xlsx` wygeneruje gotowy geoportal zawierający dane o siedzibach administracji LP wraz z danymi kontaktowymi i zdjęciami budynków. 
 7. Jeżeli w oknie terminala po prawej zobaczysz komunikat  `Geoportal is ready to use, please open geoportal/index.html to see how it looks like` portal wygenerował się poprawnie. Wygenerowane pliki znajdują się w katalogu `geoportal`, który zobaczysz w drzewie repozytorium po lewej stronie.
 8. Żeby pobrać pliki na dysk komputera kliknij w podglądzie drzewa projektu na trzy pionowe kropki `...` i wybierz `Download as zip`.
 9. Pobrane archiwum rozpakuj w dowolne miejsce
 10. Wejdź do katalogu gdzie rozpakowałeś plik, dalej do `geoportal` i otwórz plik `index.html`
-11. W domyślnej przeglądarce pojawi się wygenerowany geoportal wraz z warstwami i punktami, które były w pliku Excel `rdlp_gps.xlsx`
+11. W domyślnej przeglądarce pojawi się wygenerowany geoportal wraz z warstwami i punktami, które były w pliku Excel `data_1.xlsx`
 12. Zawartość katalogu `geoportal` możesz komuś posłać, albo skopiować na dowolny hosting i udostępnić całemu światu :)
 13. Niech moc będzie z Tobą!
 
@@ -33,7 +33,7 @@ W skrócie, po zainstalowaniu Python-a i Git-a wykonaj poniższe polecenia w ter
 ```
 $ git clone <GitHub address>
 $ cd <projName>
-$ virtualenv .venv --python=python3
+$ python3 -m venv .venv
 $ source .venv/bin/activate
 $ pip install -r requirements.txt
 ```
